@@ -4,9 +4,10 @@ use 5.006;
 use strict;
 use warnings;
 
+
 =head1 NAME
 
-DBICx::Migration - The great new DBICx::Migration!
+DBICx::Migration - Migrate an existing database to another backend
 
 =head1 VERSION
 
@@ -19,39 +20,47 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
-
-Perhaps a little code snippet.
-
     use DBICx::Migration;
 
-    my $foo = DBICx::Migration->new();
-    ...
+    my $connect_from = [ 'dbi:mysql:dbname=mydb', 'mysql_user', 'mysql_password' ];
+    my $connect_to   = [ 'dbi::pg::dbname=mydb' , 'psql_user' , 'psql_password'  ];
+    my $schema       = 'My::Schema';
 
-=head1 EXPORT
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+    if (not my $error = DBICx::Migration::migrate( $connect_from, $connect_to, $schema) {
+          die $error;
+    }
 
-=head1 SUBROUTINES/METHODS
+$connect_from and $connect_to are passed to DBIx::Class::Schema->connect. For
+more information see L<DBIx::Class::Storage::DBI/"connect_info">.
 
-=head2 function1
+
+=head1 SUBROUTINES
+
+=head2 migrate
+
+Execute the migration process.
+
+@param array ref - connection info of source db      - DSN, username, password, option hash
+@param array ref - connection info of destination db - DSN, username, password, option hash
+@param string    - name of the schema
+
+@return success - 0
+@return error   - error string
 
 =cut
 
-sub function1 {
+sub migrate
+{
+        my ( $connect_from, $connect_to, $schema ) = @_;
+
+
 }
 
-=head2 function2
-
-=cut
-
-sub function2 {
-}
 
 =head1 AUTHOR
 
-Maik Hentsche, C<< <maik at mm-double.de> >>
+Maik Hentsche, C<< <Caldrin at cpan dot org> >>
 
 =head1 BUGS
 
