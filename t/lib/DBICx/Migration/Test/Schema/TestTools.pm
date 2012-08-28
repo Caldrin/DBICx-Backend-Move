@@ -47,7 +47,7 @@ sub setup_db {
         return "No such file: $fixture" unless -e $fixture;
 
         my ($tmpfname) = $dsn =~ m,dbi:SQLite:dbname=([\w./]+),i;
-        unlink $tmpfname or return "Can not remove sqlite database file $tmpfname: $!";
+        unlink $tmpfname; # ignore errors, they will be reported when deploy fails
 
         my $schema = DBICx::Migration::Test::Schema->connect($dsn);
         $schema->deploy;
