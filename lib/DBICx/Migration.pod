@@ -1,10 +1,3 @@
-package DBICx::Migration;
-
-use 5.006;
-use strict;
-use warnings;
-
-
 =head1 NAME
 
 DBICx::Migration - Migrate an existing database to another backend
@@ -27,8 +20,9 @@ our $VERSION = '0.01';
     my $schema       = 'My::Schema';
 
 
-    if (not my $error = DBICx::Migration::migrate( $connect_from, $connect_to, $schema) {
-          die $error;
+    eval { DBICx::Migration::migrate( $connect_from, $connect_to, $schema) };
+    if ($@) {
+          die $@;
     }
 
 $connect_from and $connect_to are passed to DBIx::Class::Schema->connect. For
@@ -44,19 +38,12 @@ Execute the migration process.
 @param array ref - connection info of source db      - DSN, username, password, option hash
 @param array ref - connection info of destination db - DSN, username, password, option hash
 @param string    - name of the schema
+@optional boolean - verbose, i.e. print what modul is currently working on
 
 @return success - 0
-@return error   - error string
+@return error   - exception
 
-=cut
-
-sub migrate
-{
-        my ( $connect_from, $connect_to, $schema ) = @_;
-
-
-}
-
+@throws die()
 
 =head1 AUTHOR
 
@@ -116,5 +103,3 @@ See http://dev.perl.org/licenses/ for more information.
 
 
 =cut
-
-1; # End of DBICx::Migration
