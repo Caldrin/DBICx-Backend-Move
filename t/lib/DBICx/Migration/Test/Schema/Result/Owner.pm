@@ -55,4 +55,7 @@ __PACKAGE__->add_columns(
 "title",   { data_type => "varchar", is_nullable => 1, size => 15 },
 "status",  { data_type => "VARCHAR", default_value => "work", is_nullable => 1, size => 255, is_enum => 1, extra => { list => [qw(work vacation sick)] } },
 );
+__PACKAGE__->set_primary_key('idx');
+
+
 1;
