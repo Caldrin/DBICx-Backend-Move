@@ -5,7 +5,7 @@ use ExtUtils::MakeMaker;
 
 WriteMakefile(
               NAME                => 'DBICx::Migration',
-              AUTHOR              => q{Maik Hentsche <maik@mm-double.de>},
+              AUTHOR              => q{Maik Hentsche <caldrin@cpan.org>},
               VERSION             => 1.000001,
               ABSTRACT_FROM       => 'lib/DBICx/Migration/Base.pm',
               ($ExtUtils::MakeMaker::VERSION >= 6.3002
