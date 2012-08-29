@@ -10,21 +10,33 @@ Version 0.01
 
 =head1 SYNOPSIS
 
-    use DBICx::Migration;
+    use DBICx::Migration::Psql;
+    use Try::Tiny;
 
     my $connect_from = [ 'dbi:mysql:dbname=mydb', 'mysql_user', 'mysql_password' ];
     my $connect_to   = [ 'dbi::pg::dbname=mydb' , 'psql_user' , 'psql_password'  ];
     my $schema       = 'My::Schema';
+    my $verbose      = 1;
+
+    my $migrator = DBICx::Migration::Psql->new()
+
+    try { 
+          $migrator->migrate( $connect_from, $connect_to, $schema, $verbose) 
+    } catch {
+          ... # handle error
+    };
 
 
-    eval { DBICx::Migration::migrate( $connect_from, $connect_to, $schema) };
-    if ($@) {
-          die $@;
-    }
+=head1 DESCRIPTION
 
-$connect_from and $connect_to are passed to DBIx::Class::Schema->connect. For
-more information see L<DBIx::Class::Storage::DBI/"connect_info">.
-
+When you use L<DBIx::Class> to work with your database, migrating it from one
+backend to another should be really easy. Turns out it is not. This module
+offers a turn-key solution to the problem. Create an object of the
+DBICx::Migration subclass that contains the type of the B<destination>
+database in the name. For example if you want to migrate from MySQL to
+PostgreSQL you use C<new DBICx::Migration::Psql>. Currently, Psql and SQLite
+are supported. If you want it even more easy, there is an application that
+uses DBICx::Migration. Have a look at L<App::DBICx::Migration>.
 
 =head1 SUBROUTINES
 
@@ -32,15 +44,46 @@ more information see L<DBIx::Class::Storage::DBI/"connect_info">.
 
 Execute the migration process.
 
-@param array ref - connection info of source db      - DSN, username, password, option hash
-@param array ref - connection info of destination db - DSN, username, password, option hash
-@param string    - name of the schema
-@optional boolean - verbose, i.e. print what modul is currently working on
+=over 4
 
-@return success - 0
-@return error   - exception
+=item Arguments: \@connect_from, \@connect_to, $schema_name, $verbose?
 
-@throws die()
+=back
+
+=over
+
+=item connect_from
+
+This argument is an array ref containing DSN, username, password and an
+optional option hash. It will be passed to DBIx::Class::Schema->connect. For
+more information see L<DBIx::Class::Storage::DBI/"connect_info">. The array
+should contain all information to connect to the source database.
+
+=item connect_to
+
+This argument is an array ref containing DSN, username, password and an
+optional option hash. It will be passed to DBIx::Class::Schema->connect. For
+more information see L<DBIx::Class::Storage::DBI/"connect_info">. The array
+should contain all information to connect to the destination database. The
+destination needs to exist and be empty (i.e. contain no tables).
+
+=item schema_name
+
+Name of the L<DBIx::Class> based schema description of the source
+database. Therefore, it also will be the schema for the destination database.
+
+=item verbose 
+
+Print the name of the table the tool is currently working on and a dot for
+every row.
+
+=back
+
+In case of an error the function will throw an exception.
+
+=end
+
+
 
 =head1 AUTHOR
 
@@ -51,8 +94,6 @@ Maik Hentsche, C<< <Caldrin at cpan dot org> >>
 Please report any bugs or feature requests to C<bug-dbicx-migration at rt.cpan.org>, or through
 the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=DBICx-Migration>.  I will be notified, and then you'll
 automatically be notified of progress on your bug as I make changes.
-
-
 
 
 =head1 SUPPORT
@@ -87,6 +128,15 @@ L<http://search.cpan.org/dist/DBICx-Migration/>
 
 =head1 ACKNOWLEDGEMENTS
 
+Thanks to
+
+=over 4
+
+=item * renormalist for discussinh design decisions
+
+=item * mst for explaining transaction handling in DBIC and DBI
+
+=back
 
 =head1 LICENSE AND COPYRIGHT
 
