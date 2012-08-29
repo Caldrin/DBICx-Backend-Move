@@ -20,6 +20,29 @@ sub migrate
 
         $to->txn_do(sub { $to->storage->dbh->do("SET CONSTRAINTS ALL DEFERRED"); $self->transfer_data($from, $to, $verbose) });
 
+
+        # Transfering data did not update autoincrement sequences so we need to do it manually
+        foreach my $source_name ($to->sources) {
+                my $column_infos = $to->resultset($source_name)->result_source->columns_info();
+                foreach my $column ($to->resultset($source_name)->result_source->columns) {
+                        if ($column_infos->{$column}->{is_auto_increment}) {
+
+                                # get the real next value, which is current max+1
+                                # If anyone else tries to update this number, it will fail.
+                                # Probably ok since we just create this database.
+                                my $value = $to->resultset($source_name)->get_column($column)->max_rs;
+                                $value += 1;
+
+                                my $table_name = $to->source_registrations->{$source_name}->name;
+                                $to->storage->dbh_do(
+                                                     sub { my ($storage, $dbh) = @_;
+                                                           my $sequence = $dbh->selectrow_array("select pg_get_serial_sequence('$table_name', '$column');");
+                                                           $dbh->do("alter sequence $sequence restart with $value");
+                                                   } );
+                        }
+                }
+
+        }
         return 0;
 }
 
