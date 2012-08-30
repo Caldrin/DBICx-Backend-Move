@@ -81,7 +81,6 @@ every row.
 
 In case of an error the function will throw an exception.
 
-=end
 
 
 
