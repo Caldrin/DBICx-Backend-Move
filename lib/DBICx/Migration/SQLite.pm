@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use Moo;
 
-extends 'DBICx::Migration::Base';
+extends 'DBICx::Migration';
 
 sub migrate
 {

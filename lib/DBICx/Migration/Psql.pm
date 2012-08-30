@@ -7,7 +7,7 @@ use Moo;
 use Module::Load 'load';
 use DBICx::Deploy;
 
-extends 'DBICx::Migration::Base';
+extends 'DBICx::Migration';
 
 sub migrate
 {

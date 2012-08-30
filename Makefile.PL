@@ -6,7 +6,7 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
               NAME                => 'DBICx::Migration',
               AUTHOR              => q{Maik Hentsche <caldrin@cpan.org>},
-              VERSION_FROM        => 'lib/DBICx/Migration/Base.pm',
+              VERSION_FROM        => 'lib/DBICx/Migration.pm',
               ($ExtUtils::MakeMaker::VERSION >= 6.3002
                ? ('LICENSE'=> 'perl')
                : ()),
