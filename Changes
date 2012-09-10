@@ -1,5 +1,9 @@
-Revision history for DBICx-Migration
+Revision history for DBICx-Backend-Move
 
-0.01    Date/time
-        First version, released on an unsuspecting world.
+1.000002    2012-09-10
+            - Added a script to use the module
+
+1.000001    2012-09-10
+            - First version
+
 
