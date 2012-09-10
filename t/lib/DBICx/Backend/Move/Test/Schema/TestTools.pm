@@ -1,4 +1,4 @@
-package DBICx::Migration::Test::Schema::TestTools;
+package DBICx::Backend::Move::Test::Schema::TestTools;
 
 # inspired by Test::Fixture::DBIC::Schema
 
@@ -12,7 +12,7 @@ BEGIN {
         $DBD::SQLite::sqlite_version; # fix "used only once" warning
 }
 
-use DBICx::Migration::Test::Schema;
+use DBICx::Backend::Move::Test::Schema;
 use Test::Fixture::DBIC::Schema qw/construct_fixture/;
 
 =head1 NAME
@@ -23,9 +23,9 @@ CLT::Schema::TestTools - Set up database for unit testing
 
 =head1 SYNOPSIS
 
-    use DBICx::Migration::Test::Schema::TestTools;
+    use DBICx::Backend::Move::Test::Schema::TestTools;
 
-    my $error = DBICx::Migration::Test::Schema::TestTools::setup_db('t/fixtures/db.yml', 'dbi:SQLite:dbname=t/from.sqlite');
+    my $error = DBICx::Backend::Move::Test::Schema::TestTools::setup_db('t/fixtures/db.yml', 'dbi:SQLite:dbname=t/from.sqlite');
     die $error if $error;
 
 =head1 SUBROUTINES
@@ -49,7 +49,7 @@ sub setup_db {
         my ($tmpfname) = $dsn =~ m,dbi:SQLite:dbname=([\w./]+),i;
         unlink $tmpfname; # ignore errors, they will be reported when deploy fails
 
-        my $schema = DBICx::Migration::Test::Schema->connect($dsn);
+        my $schema = DBICx::Backend::Move::Test::Schema->connect($dsn);
         $schema->deploy;
         construct_fixture( schema  => $schema, fixture => $fixture );
         return 0;

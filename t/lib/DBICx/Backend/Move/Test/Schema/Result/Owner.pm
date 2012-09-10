@@ -1,4 +1,4 @@
-package DBICx::Migration::Test::Schema::Result::Owner;
+package DBICx::Backend::Move::Test::Schema::Result::Owner;
 use strict;
 use warnings;
 
@@ -7,7 +7,7 @@ use base 'DBIx::Class::Core';
 
 =head1 NAME
 
-DBICx::Migration::Test::Schema::Result::Owner;
+DBICx::Backend::Move::Test::Schema::Result::Owner;
 
 =cut
 

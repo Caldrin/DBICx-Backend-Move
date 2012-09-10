@@ -1,4 +1,4 @@
-package DBICx::Migration::Test::Schema;
+package DBICx::Backend::Move::Test::Schema;
 
 use strict;
 use warnings;
