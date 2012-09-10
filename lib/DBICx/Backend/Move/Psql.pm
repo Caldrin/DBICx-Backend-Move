@@ -1,4 +1,4 @@
-package DBICx::Migration::Psql;
+package DBICx::Backend::Move::Psql;
 
 use 5.010;
 use strict;
@@ -7,7 +7,7 @@ use Moo;
 use Module::Load 'load';
 use DBICx::Deploy;
 
-extends 'DBICx::Migration';
+extends 'DBICx::Backend::Move';
 
 sub migrate
 {

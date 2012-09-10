@@ -1,11 +1,11 @@
-package DBICx::Migration::SQLite;
+package DBICx::Backend::Move::SQLite;
 
 use 5.010;
 use strict;
 use warnings;
 use Moo;
 
-extends 'DBICx::Migration';
+extends 'DBICx::Backend::Move';
 
 sub migrate
 {

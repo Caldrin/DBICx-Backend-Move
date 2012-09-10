@@ -1,4 +1,4 @@
-package DBICx::Migration;
+package DBICx::Backend::Move;
 
 use 5.010;
 use strict;

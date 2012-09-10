@@ -1,6 +1,6 @@
 =head1 NAME
 
-DBICx::Migration - Migrate an existing database to another backend
+DBICx::Backend::Move - Migrate an existing database to another backend
 
 =head1 VERSION
 
@@ -10,7 +10,7 @@ Version 0.01
 
 =head1 SYNOPSIS
 
-    use DBICx::Migration::Psql;
+    use DBICx::Backend::Move::Psql;
     use Try::Tiny;
 
     my $connect_from = [ 'dbi:mysql:dbname=mydb', 'mysql_user', 'mysql_password' ];
@@ -18,7 +18,7 @@ Version 0.01
     my $schema       = 'My::Schema';
     my $verbose      = 1;
 
-    my $migrator = DBICx::Migration::Psql->new()
+    my $migrator = DBICx::Backend::Move::Psql->new()
 
     try { 
           $migrator->migrate( $connect_from, $connect_to, $schema, $verbose) 
@@ -34,9 +34,9 @@ backend to another should be really easy. Turns out it is not. This module
 offers a turn-key solution to the problem. Create an object of the
 DBICx::Migration subclass that contains the type of the B<destination>
 database in the name. For example if you want to migrate from MySQL to
-PostgreSQL you use C<new DBICx::Migration::Psql>. Currently, Psql and SQLite
+PostgreSQL you use C<new DBICx::Backend::Move::Psql>. Currently, Psql and SQLite
 are supported. If you want it even more easy, there is an application that
-uses DBICx::Migration. Have a look at L<App::DBICx::Migration>.
+uses DBICx::Backend::Move. Have a look at L<App::DBICx::Backend::Move>.
 
 =head1 SUBROUTINES
 
@@ -91,7 +91,7 @@ Maik Hentsche, C<< <Caldrin at cpan dot org> >>
 =head1 BUGS
 
 Please report any bugs or feature requests to C<bug-dbicx-migration at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=DBICx-Migration>.  I will be notified, and then you'll
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=DBICx-Backend-Move>.  I will be notified, and then you'll
 automatically be notified of progress on your bug as I make changes.
 
 
@@ -99,7 +99,7 @@ automatically be notified of progress on your bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc DBICx::Migration
+    perldoc DBICx::Backend::Move
 
 
 You can also look for information at:
@@ -108,19 +108,19 @@ You can also look for information at:
 
 =item * RT: CPAN's request tracker (report bugs here)
 
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=DBICx-Migration>
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=DBICx-Backend-Move>
 
 =item * AnnoCPAN: Annotated CPAN documentation
 
-L<http://annocpan.org/dist/DBICx-Migration>
+L<http://annocpan.org/dist/DBICx-Backend-Move>
 
 =item * CPAN Ratings
 
-L<http://cpanratings.perl.org/d/DBICx-Migration>
+L<http://cpanratings.perl.org/d/DBICx-Backend-Move>
 
 =item * Search CPAN
 
-L<http://search.cpan.org/dist/DBICx-Migration/>
+L<http://search.cpan.org/dist/DBICx-Backend-Move/>
 
 =back
 
