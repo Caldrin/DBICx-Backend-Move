@@ -10,14 +10,16 @@ use base qw(App::Cmd::Simple);
 use DBI;
 use Module::Load 'load';
 
+my $user = getlogin || getpwuid($<) || "unknown";
+
 sub opt_spec {
         return (
                 [ "schema|s=s",    "Name of the database schema",  { required => 1 }              ],
                 [ "from_dsn|f=s",  "DSN for source database",      { required => 1 }              ],
                 [ "to_dsn|t=s",    "DSN for destination database", { required => 1 }              ],
-                [ "from_user=s",   "Username for source database; \$USER ($ENV{USER}) by default" ],
+                [ "from_user=s",   "Username for source database; \$USER ($user) by default" ],
                 [ "from_pass=s",   "Password for source database; empty by default"               ],
-                [ "to_user=s",     "Username for source database; \$USER ($ENV{USER}) by default" ],
+                [ "to_user=s",     "Username for source database; \$USER ($user) by default" ],
                 [ "to_pass=s",     "Password for source database; empty by default"               ],
                 [ "verbose|v",     "Be more verbose"],
                );
@@ -47,8 +49,8 @@ sub execute {
         $migrator = $module->new;
 
 
-        my $connect_from = [ $opt->{from_dsn}, $opt->{from_user} || $ENV{USER}, $opt->{from_pass} || '' ];
-        my $connect_to   = [ $opt->{to_dsn},   $opt->{to_user}   || $ENV{USER}, $opt->{to_pass}   || '' ];
+        my $connect_from = [ $opt->{from_dsn}, $opt->{from_user} || $user, $opt->{from_pass} || '' ];
+        my $connect_to   = [ $opt->{to_dsn},   $opt->{to_user}   || $user, $opt->{to_pass}   || '' ];
         my $retval = $migrator->migrate($connect_from, $connect_to, $opt->{schema}, $opt->{verbose});
 }
 
