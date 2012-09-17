@@ -1,7 +1,8 @@
 Revision history for DBICx-Backend-Move
 
-1.000003    2012-09-11
+1.000003    2012-09-17
             - set user in portable way
+            - documentation on command line tool
 
 1.000002    2012-09-10
             - Added a script to use the module
