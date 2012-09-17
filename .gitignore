@@ -13,3 +13,4 @@ DBICx-Backend-Move-*
 *.sqlite
 MYMETA.json
 MYMETA.yml
+.build/
