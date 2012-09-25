@@ -11,9 +11,9 @@ our $VERSION=1.000003;
 
 sub deploy
 {
-        my ( $self, $schema, $connect ) = @_;
+        my ( $self, $schema, $dsn, @args ) = @_;
         load $schema;
-        DBICx::Deploy->deploy($schema, $connect);
+        DBICx::Deploy->deploy($schema, $dsn, @args);
         return;
 }
 
