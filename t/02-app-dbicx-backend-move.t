@@ -15,7 +15,7 @@ die $error if $error;
 unlink 't/to.sqlite';
 
 my @call = ("$EXECUTABLE_NAME -Ilib -It/lib bin/dbicx-backend-move");
-push @call, "-v";                                            # verbose output
+push @call, "-vv";                                           # verbose output
 push @call, "--schema='DBICx::Backend::Move::Test::Schema'"; # schema to use
 push @call, "--from_dsn='dbi:SQLite:dbname=t/from.sqlite'";  # source database
 push @call, "--from_user ''";                                # user for source database
@@ -25,8 +25,7 @@ push @call, "2>&1";                                          # capture stderr to
 my $call = join " ", @call;
 
 my $result = qx($call);
-is($result, "Source Owner
-..
+is($result, "Transfer: Owner.....done.
 ", 'Two data sets transfered for table owner');
 
 done_testing();

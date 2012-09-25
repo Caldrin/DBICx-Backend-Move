@@ -22,16 +22,17 @@ sub transfer_data
 {
         my ( $self, $from, $to, $verbose ) = @_;
 
+        $verbose ||= 0;
         foreach my $source_name ($from->sources) {
-                say STDERR "Source $source_name" if $verbose;
+                print STDERR "Transfer: $source_name..." if $verbose;
                 my $source_rs = $from->resultset($source_name);
                 $source_rs->result_class('DBIx::Class::ResultClass::HashRefInflator');
                 while (my $row = $source_rs->next) {
-                        print STDERR "." if $verbose;
+                        print STDERR "." if $verbose >= 2;
                         my $new_row = $to->resultset($source_name)->new($row);
                         $new_row->insert;
                 }
-                print STDERR "\n" if $verbose;
+                print STDERR "done.\n" if $verbose;
         }
         return;
 }
