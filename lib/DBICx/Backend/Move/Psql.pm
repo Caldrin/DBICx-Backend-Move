@@ -13,7 +13,7 @@ sub migrate
 {
         my ( $self, $connect_from, $connect_to, $schema, $verbose ) = @_;
 
-        $self->deploy($schema, $connect_to->[0]);
+        $self->deploy($schema, @$connect_to);
 
         my $from = $schema->connect(@$connect_from);
         my $to   = $schema->connect(@$connect_to);
