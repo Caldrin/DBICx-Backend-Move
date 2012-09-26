@@ -25,7 +25,10 @@ push @call, "2>&1";                                          # capture stderr to
 my $call = join " ", @call;
 
 my $result = qx($call);
-is($result, "Transfer: Owner.....done.
+is($result, "Transfer: Owner
+..done.
+Transfer: ViewOwner
+ViewOwner is a view. Skipped.
 ", 'Two data sets transfered for table owner');
 
 done_testing();
