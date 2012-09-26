@@ -25,7 +25,7 @@ sub transfer_data
         $verbose ||= 0;
  SOURCE:
         foreach my $source_name ($from->sources) {
-                say STDERR "Transfer: $source_name" if $verbose;
+                print STDERR "Transfer: $source_name => " if $verbose;
                 my $source_rs = $from->resultset($source_name);
 
                 if (ref $source_rs->result_source eq 'DBIx::Class::ResultSource::View') {
