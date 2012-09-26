@@ -23,9 +23,16 @@ sub transfer_data
         my ( $self, $from, $to, $verbose ) = @_;
 
         $verbose ||= 0;
+ SOURCE:
         foreach my $source_name ($from->sources) {
                 print STDERR "Transfer: $source_name..." if $verbose;
                 my $source_rs = $from->resultset($source_name);
+
+                if (ref $source_rs->result_source eq 'DBIx::Class::ResultSource::View') {
+                        say STDERR "$source_name is a view. Skipped." if $verbose;
+                        next SOURCE;
+                }
+
                 $source_rs->result_class('DBIx::Class::ResultClass::HashRefInflator');
                 while (my $row = $source_rs->next) {
                         print STDERR "." if $verbose >= 2;
