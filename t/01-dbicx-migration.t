@@ -18,10 +18,17 @@ my $connect_from = [ 'dbi:SQLite:dbname=t/from.sqlite', '', '' ];
 my $connect_to   = [ 'dbi:SQLite:dbname=t/to.sqlite'  , '', '' ];
 my $schema       = 'DBICx::Backend::Move::Test::Schema';
 
+my $from = $schema->connect(@$connect_from);
+is($from->resultset('Host')->find(1)->desc, 'Marie', 'Filtered content in Perl (Source)');
+is($from->resultset('Host')->find(1)->get_column('desc'), 'compressed:Marie', 'Unfiltered content in DB (Source)');
+
 
 my $migrator = DBICx::Backend::Move::SQLite->new();
 my $retval = $migrator->migrate($connect_from, $connect_to, $schema);
 is($retval, 0, 'Migrated database');
 
+my $to = $schema->connect(@$connect_to);
+is($to->resultset('Host')->find(1)->desc, 'Marie', 'Filtered content in Perl (Destination)');
+is($to->resultset('Host')->find(1)->get_column('desc'), 'compressed:Marie', 'Unfiltered content in DB (Destination)');
 
 done_testing();

@@ -19,3 +19,10 @@
     surname: Bohr
     title: ~
     status: work
+
+- schema: Host
+  name: Content
+  data:
+    idx: 1
+    name: Curie
+    desc: "Marie"

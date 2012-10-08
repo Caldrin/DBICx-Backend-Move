@@ -26,6 +26,7 @@ my $call = join " ", @call;
 
 my $result = qx($call);
 is($result, "Transfer: Owner => ..done.
+Transfer: Host => .done.
 Transfer: ViewOwner => ViewOwner is a view. Skipped.
 ", 'Two data sets transfered for table owner');
 
