@@ -1,5 +1,9 @@
 Revision history for DBICx-Backend-Move
 
+1.000006    2012-10-08
+            - Fixed: calculation of sequence numbers
+
+
 1.000005    2012-10-08
             - Fixed: filtered column handling
 
