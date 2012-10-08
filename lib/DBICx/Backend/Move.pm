@@ -33,10 +33,16 @@ sub transfer_data
                         next SOURCE;
                 }
 
-                $source_rs->result_class('DBIx::Class::ResultClass::HashRefInflator');
+                # prepare rows, so we don't need to call columns in the following loop
+                my @rownames = $source_rs->result_source->columns;
+
                 while (my $row = $source_rs->next) {
+                        my %source_row;
                         print STDERR "." if $verbose >= 2;
-                        my $new_row = $to->resultset($source_name)->new($row);
+                        foreach my $column (@rownames) {
+                                $source_row{$column} = $row->$column;
+                        }
+                        my $new_row = $to->resultset($source_name)->new(\%source_row);
                         $new_row->insert;
                 }
                 print STDERR "done.\n" if $verbose;
