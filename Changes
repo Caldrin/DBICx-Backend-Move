@@ -1,6 +1,9 @@
 Revision history for DBICx-Backend-Move
 
-1.000004    2010-09-26
+1.000005    2012-10-08
+            - Fixed: filtered column handling
+
+1.000004    2012-09-26
             - Fixed: credentials are now transfered to commit (Steffen Schwigon)
             - Show life signal only on -vv (Steffen Schwigon)
             - Skip views for transfer (Bug #3, reported by Steffen Schwigon)
