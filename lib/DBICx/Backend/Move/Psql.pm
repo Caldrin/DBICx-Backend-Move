@@ -30,7 +30,7 @@ sub migrate
                                 # get the real next value, which is current max+1
                                 # If anyone else tries to update this number, it will fail.
                                 # Probably ok since we just create this database.
-                                my $value = $to->resultset($source_name)->get_column($column)->max_rs;
+                                my $value = $to->resultset($source_name)->get_column($column)->max;
                                 $value += 1;
 
                                 my $table_name = $to->source_registrations->{$source_name}->name;
