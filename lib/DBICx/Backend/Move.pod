@@ -2,9 +2,6 @@
 
 DBICx::Backend::Move - Migrate an existing database to another backend
 
-=head1 VERSION
-
-Version 1.00003
 
 =cut
 
