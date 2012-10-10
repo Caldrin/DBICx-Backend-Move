@@ -20,9 +20,12 @@ sub deploy
 
 sub transfer_data
 {
-        my ( $self, $from, $to, $verbose ) = @_;
+        my ( $self, $from, $to, $opt ) = @_;
 
-        $verbose ||= 0;
+        my $schema   = $opt->{schema};
+        my $verbose  = $opt->{verbose} || 0;
+        my $rawmode  = $opt->{rawmode};
+
  SOURCE:
         foreach my $source_name ($from->sources) {
                 print STDERR "Transfer: $source_name => " if $verbose;
@@ -33,16 +36,17 @@ sub transfer_data
                         next SOURCE;
                 }
 
-                # prepare rows, so we don't need to call columns in the following loop
-                my @rownames = $source_rs->result_source->columns;
-
                 while (my $row = $source_rs->next) {
                         my %source_row;
                         print STDERR "." if $verbose >= 2;
-                        foreach my $column (@rownames) {
-                                $source_row{$column} = $row->$column;
+                        %source_row = $rawmode ? $row->get_columns : $row->get_inflated_columns;
+                        my $new_row;
+                        if ($rawmode) {
+                                $new_row = $to->resultset($source_name)->new({});
+                                $new_row->set_columns(\%source_row);
+                        } else {
+                                $new_row = $to->resultset($source_name)->new(\%source_row);
                         }
-                        my $new_row = $to->resultset($source_name)->new(\%source_row);
                         $new_row->insert;
                 }
                 print STDERR "done.\n" if $verbose;

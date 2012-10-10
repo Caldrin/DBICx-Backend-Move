@@ -11,14 +11,18 @@ extends 'DBICx::Backend::Move';
 
 sub migrate
 {
-        my ( $self, $connect_from, $connect_to, $schema, $verbose ) = @_;
+        my ( $self, $connect_from, $connect_to, $opt ) = @_;
+
+        my $schema  = $opt->{schema};
+        my $verbose = $opt->{verbose};
+        my $logfile = $opt->{logfile};
 
         $self->deploy($schema, @$connect_to);
 
         my $from = $schema->connect(@$connect_from);
         my $to   = $schema->connect(@$connect_to);
 
-        $to->txn_do(sub { $to->storage->dbh->do("SET CONSTRAINTS ALL DEFERRED"); $self->transfer_data($from, $to, $verbose) });
+        $to->txn_do(sub { $to->storage->dbh->do("SET CONSTRAINTS ALL DEFERRED"); $self->transfer_data($from, $to, $opt) });
 
 
         # Transfering data did not update autoincrement sequences so we need to do it manually
