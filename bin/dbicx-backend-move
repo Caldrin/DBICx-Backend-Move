@@ -18,7 +18,7 @@ backend to another. Imagine you have add your data in a MySQL database
 and want to continue with a PostgreSQL database. Here is the tool for
 you.
 
-   $ dbicx-backend-move --schema 'MyApp::Schema' --from_dsn dbi:mysql:dbname=mydb --from_user user --from_pass pass --to_dsn dbi::pg::dbname=mydb --to_user user --to_pass pass --verbose
+   $ dbicx-backend-move --schema 'MyApp::Schema' --from_dsn dbi:mysql:dbname=mydb --from_user user --from_pass pass --to_dsn dbi::pg::dbname=mydb --to_user user --to_pass pass --verbose --rawmode
 
 
 Lets look at the options in detail:
@@ -74,10 +74,19 @@ Optional option. This is the password needed to connect to the
 destination database. If this argument is not given dbicx-backend-move
 will assume no password is needed.
 
-=item verbose
+=item --verbose
 
 Optional option. Print the name of the table the tool is currently
 working on and a dot for every row.
+
+=item --rawmode
+
+Optional mode. Normally during a DB transfer we read and write values
+through the DBIC layers which can contain filters for deflate/inflate.
+This guarantees that possible backend-specific filters are applied and
+converted correctly. However, in some situation this can be too heavy
+(memory/time consuming) or you want the exact same values transferred
+without touching for other reasons. The rawmode does that.
 
 =back
 

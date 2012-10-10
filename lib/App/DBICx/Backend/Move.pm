@@ -21,6 +21,7 @@ sub opt_spec {
                 [ "from_pass=s",   "Password for source database; empty by default"               ],
                 [ "to_user=s",     "Username for source database; \$USER ($user) by default"      ],
                 [ "to_pass=s",     "Password for source database; empty by default"               ],
+                [ "rawmode",       "Transfer raw values, without inflate/deflate"                 ],
                 [ "verbose|v+",    "Be more verbose"],
                );
 }
