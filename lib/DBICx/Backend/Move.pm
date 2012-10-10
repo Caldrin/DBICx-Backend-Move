@@ -20,9 +20,11 @@ sub deploy
 
 sub transfer_data
 {
-        my ( $self, $from, $to, $verbose ) = @_;
+        my ( $self, $from, $to, $opt ) = @_;
 
-        $verbose ||= 0;
+        my $schema   = $opt->{schema};
+        my $verbose  = $opt->{verbose} || 0;
+
  SOURCE:
         foreach my $source_name ($from->sources) {
                 print STDERR "Transfer: $source_name => " if $verbose;

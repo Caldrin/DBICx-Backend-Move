@@ -8,4 +8,4 @@ BEGIN {
     use_ok( 'App::DBICx::Backend::Move' )    || print "Bail out!\n";
 }
 
-diag( "Testing DBICx::Backend::Move $DBICx::Backend::Move::Base::VERSION, Perl $], $^X" );
+diag( "Testing DBICx::Backend::Move $DBICx::Backend::Move::VERSION, Perl $], $^X" );
