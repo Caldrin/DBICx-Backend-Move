@@ -1,5 +1,7 @@
 Revision history for DBICx-Backend-Move
 
+1.000009    2012-10-11
+            - raw mode added by Steffen Schwigon
 
 1.000008    2012-10-09
             - Fixed: version hickup, try again
