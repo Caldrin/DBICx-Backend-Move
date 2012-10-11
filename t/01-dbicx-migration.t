@@ -24,7 +24,7 @@ is($from->resultset('Host')->find(1)->get_column('desc'), 'compressed:Marie', 'U
 
 
 my $migrator = DBICx::Backend::Move::SQLite->new();
-my $retval = $migrator->migrate($connect_from, $connect_to, $schema);
+my $retval = $migrator->migrate($connect_from, $connect_to, { schema => $schema });
 is($retval, 0, 'Migrated database');
 
 my $to = $schema->connect(@$connect_to);
