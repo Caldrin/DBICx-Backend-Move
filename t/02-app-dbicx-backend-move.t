@@ -16,7 +16,7 @@ unlink 't/to.sqlite';
 
 # command line handling works differently on Windows. Deactivate 
 TODO: {
-        local $TODO = "Command line handling works differently on Windows. Mark as TODO until I know how (or someone fixes the test/module)" if $^O =~ m/Win/;
+        local $TODO = "Command line handling works differently on Windows." if $^O eq 'MSWin32';
 
         my @call = ("$EXECUTABLE_NAME -Ilib -It/lib bin/dbicx-backend-move");
         push @call, "-vv";      # verbose output
