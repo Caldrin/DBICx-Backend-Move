@@ -7,7 +7,7 @@ use Moo;
 use Module::Load 'load';
 use DBICx::Deploy;
 
-our $VERSION = 1.00009;
+our $VERSION = 1.00010;
 
 sub deploy
 {
