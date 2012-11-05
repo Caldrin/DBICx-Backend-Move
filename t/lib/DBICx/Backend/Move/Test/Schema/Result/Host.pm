@@ -4,6 +4,10 @@ use warnings;
 
 use base 'DBIx::Class::Core';
 
+# let dzil know we need the components
+use DBIx::Class::FilterColumn;
+use DBIx::Class::TimeStamp;
+use DBIx::Class::InflateColumn::DateTime;
 
 =head1 NAME
 
